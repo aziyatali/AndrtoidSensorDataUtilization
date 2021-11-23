@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -20,7 +21,34 @@ public class MainActivity extends AppCompatActivity{
     private SensorManager sensorManager;
     private Sensor sensor, gyroscope;
     SensorEventListener sensorEventListener, gyroscopeListener;
+    private double acceleratorCurrent;
+    private double acceleratorPrevious;
+    private double gyroscopeCurrent;
+    private double gyroscopePrevious;
+    private int pointsPlotted = 5;
+    private int pointsPlottedG = 5;
+    private int graphIntervalCounter = 0;
+    private int graphIntervalCounterGyroscope = 0;
+    private Viewport viewport1;
+    private Viewport viewport2;
 
+    // Initialization of the graph and default values for accelerators
+    LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
+            new DataPoint(0, 0),
+            new DataPoint(0, 0),
+            new DataPoint(0, 0),
+            new DataPoint(0, 0),
+            new DataPoint(0, 0)
+    });
+
+    // Initialization of the graph and default values for gyroscope
+    LineGraphSeries<DataPoint> series2 = new LineGraphSeries<DataPoint>(new DataPoint[] {
+            new DataPoint(0, 0),
+            new DataPoint(0, 0),
+            new DataPoint(0, 0),
+            new DataPoint(0, 0),
+            new DataPoint(0, 0)
+    });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +72,15 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onSensorChanged(SensorEvent event) {
                 float x = event.values[0], y = event.values[1], z = event.values[2];
-                textView.setText(x + "\n" + y + "\n" + z);
+                acceleratorCurrent = Math.sqrt((x * x + y * y + z * z));
+                double  changeInAcceleration = Math.abs(acceleratorCurrent - acceleratorPrevious);
+                acceleratorPrevious = acceleratorCurrent;
+
+                pointsPlotted++;
+                series.appendData(new DataPoint(pointsPlotted, changeInAcceleration), true, pointsPlotted);
+                viewport1.setMaxX(pointsPlotted);
+                viewport1.setMinX(pointsPlotted-200);
+//                textView.setText(x + "\n" + y + "\n" + z);
             }
 
             @Override
@@ -56,7 +92,14 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onSensorChanged(SensorEvent event) {
                 float x = event.values[0], y = event.values[1], z = event.values[2];
-                textView.setText("Gyroscope: "+ x + "\n" + y + "\n" + z);
+                gyroscopeCurrent = Math.sqrt(x * x + y * y + z * z);
+                double changeInGyroscope = Math.abs(gyroscopeCurrent - gyroscopePrevious);
+                gyroscopePrevious = gyroscopeCurrent;
+                pointsPlottedG++;
+                series2.appendData(new DataPoint(pointsPlottedG, changeInGyroscope), true, pointsPlottedG);
+                viewport2.setMaxX(pointsPlottedG);
+                viewport2.setMinX(pointsPlottedG - 200);
+//                textView.setText("Gyroscope: "+ x + "\n" + y + "\n" + z);
             }
 
             @Override
@@ -66,24 +109,16 @@ public class MainActivity extends AppCompatActivity{
         };
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
+        viewport1 = graph.getViewport();
+        viewport1.setScrollable(true);
+        viewport1.setXAxisBoundsManual(true);
         graph.addSeries(series);
 
 
         GraphView graph2 = (GraphView) findViewById(R.id.graph2);
-        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
+        viewport2 = graph.getViewport();
+        viewport2.setScrollable(true);
+        viewport2.setXAxisBoundsManual(true);
         graph2.addSeries(series2);
 
 
