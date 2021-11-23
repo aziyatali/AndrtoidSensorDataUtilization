@@ -2,6 +2,7 @@ package com.example.sensor_accelerometer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.SensorEvent;
@@ -27,8 +28,6 @@ public class MainActivity extends AppCompatActivity{
     private double gyroscopePrevious;
     private int pointsPlotted = 5;
     private int pointsPlottedG = 5;
-    private int graphIntervalCounter = 0;
-    private int graphIntervalCounterGyroscope = 0;
     private Viewport viewport1;
     private Viewport viewport2;
 
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onSensorChanged(SensorEvent event) {
                 float x = event.values[0], y = event.values[1], z = event.values[2];
-                gyroscopeCurrent = Math.sqrt(x * x + y * y + z * z);
+                gyroscopeCurrent = Math.sqrt((x * x + y * y + z * z));
                 double changeInGyroscope = Math.abs(gyroscopeCurrent - gyroscopePrevious);
                 gyroscopePrevious = gyroscopeCurrent;
                 pointsPlottedG++;
@@ -116,9 +115,11 @@ public class MainActivity extends AppCompatActivity{
 
 
         GraphView graph2 = (GraphView) findViewById(R.id.graph2);
-        viewport2 = graph.getViewport();
+        viewport2 = graph2.getViewport();
         viewport2.setScrollable(true);
         viewport2.setXAxisBoundsManual(true);
+        series2.setColor(Color.RED);
+        graph.addSeries(series2);
         graph2.addSeries(series2);
 
 
