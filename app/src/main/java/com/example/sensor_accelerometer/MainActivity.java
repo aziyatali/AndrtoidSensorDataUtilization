@@ -76,6 +76,17 @@ public class MainActivity extends AppCompatActivity{
         graph.addSeries(series);
 
 
+        GraphView graph2 = (GraphView) findViewById(R.id.graph2);
+        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph2.addSeries(series2);
+
+
     }
     @Override
     protected void onResume() {
