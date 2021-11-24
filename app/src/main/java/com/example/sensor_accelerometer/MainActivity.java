@@ -8,6 +8,8 @@ import android.hardware.SensorManager;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,7 +113,6 @@ public class MainActivity extends AppCompatActivity{
         viewport1 = graph.getViewport();
         viewport1.setScrollable(true);
         viewport1.setXAxisBoundsManual(true);
-        graph.addSeries(series);
 
 
         GraphView graph2 = (GraphView) findViewById(R.id.graph2);
@@ -119,11 +120,25 @@ public class MainActivity extends AppCompatActivity{
         viewport2.setScrollable(true);
         viewport2.setXAxisBoundsManual(true);
         series2.setColor(Color.RED);
-        graph.addSeries(series2);
-        graph2.addSeries(series2);
+
+        Button btn = findViewById(R.id.startButton);
+        btn.setOnClickListener (new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                graph.addSeries(series);
+
+
+                graph.addSeries(series2);
+                graph2.addSeries(series2);
+
+            }
+        });
+
 
 
     }
+
+
     @Override
     protected void onResume() {
         super.onResume();
