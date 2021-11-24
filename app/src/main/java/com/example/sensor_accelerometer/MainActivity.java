@@ -122,6 +122,10 @@ public class MainActivity extends AppCompatActivity{
         series2.setColor(Color.RED);
 
         Button btn = findViewById(R.id.startButton);
+        Button btn2 = findViewById(R.id.pauseButton);
+        Button btn3 = findViewById(R.id.restartButton);
+
+        // Start the graph
         btn.setOnClickListener (new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -131,6 +135,34 @@ public class MainActivity extends AppCompatActivity{
                 graph.addSeries(series2);
                 graph2.addSeries(series2);
 
+            }
+        });
+
+        // Pause the graph
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // Restart the graph
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                graph.removeAllSeries();
+
+                btn.setOnClickListener (new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        graph.addSeries(series);
+
+
+                        graph.addSeries(series2);
+                        graph2.addSeries(series2);
+
+                    }
+                });
             }
         });
 
