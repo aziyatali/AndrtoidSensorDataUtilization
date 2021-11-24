@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
         // Pause the graph
+
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
