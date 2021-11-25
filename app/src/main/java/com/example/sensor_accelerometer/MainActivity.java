@@ -93,21 +93,15 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.text_accelerometer);
+
+        Button start = (Button)findViewById(R.id.startButton);
+        ImageView run = (ImageView) findViewById(R.id.action_image);
+        AnimationDrawable runningMan = (AnimationDrawable)run.getDrawable();
+
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         // sensor for accelerometer
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        // Animation
-//        ImageView rocketImage = (ImageView) findViewById(R.id.myanimation);
-//        rocketImage.setBackgroundResource(R.drawable.img3);
-//        rocketAnimation = (AnimationDrawable) rocketImage.getBackground();
-//
-//        rocketImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                rocketAnimation.start();
-//            }
-//        });
 
         if (sensor == null){
             Toast.makeText(this, "value is null", Toast.LENGTH_SHORT).show();
@@ -122,8 +116,15 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onSensorChanged(SensorEvent event) {
                 float x = event.values[0], y = event.values[1], z = event.values[2];
-                //acceleratorCurrent = Math.sqrt((x * x + y * y + z * z));
+                acceleratorCurrentX = x;
+                acceleratorCurrentY = y;
+                acceleratorCurrentZ = z;
 
+                // we calculate the speed of Man by this formula
+                int speedOfMan = (int)Math.sqrt((x*x + y*y + z*z));
+                //set the speed for man according to accelerometer.
+                //runningMan.setDuration(speedOfMan);
+                runningMan.start();
                 double  changeInAccelerationX = Math.abs(acceleratorCurrentX - acceleratorPreviousX);
                 double  changeInAccelerationY = Math.abs(acceleratorCurrentY - acceleratorPreviousY);
                 double  changeInAccelerationZ = Math.abs(acceleratorCurrentZ - acceleratorPreviousZ);
@@ -224,18 +225,6 @@ public class MainActivity extends AppCompatActivity{
             graph2.addSeries(series2Y);
             graph2.addSeries(series2Z);
         });
-//        ImageView rocketImage = (ImageView) findViewById(R.id.myanimation);
-//        rocketImage.setBackgroundResource(R.drawable.img3);
-//        rocketAnimation = (AnimationDrawable) rocketImage.getBackground();
-//
-//        rocketImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                rocketAnimation.start();
-//            }
-//        });
-
-
     }
 
 

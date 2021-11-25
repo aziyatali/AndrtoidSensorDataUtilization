@@ -84,7 +84,7 @@
         tools:visibility="visible" />
 
     <ImageView
-        android:id="@+id/myanimation"
+        android:id="@+id/action_image"
         android:layout_width="127dp"
         android:layout_height="168dp"
         android:layout_alignParentEnd="true"
