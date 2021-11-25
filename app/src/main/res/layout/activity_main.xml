@@ -28,6 +28,7 @@
         android:layout_marginBottom="5dip"
         app:layout_constraintBottom_toTopOf="@+id/graph2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/text_accelerometer" />
 
@@ -46,7 +47,7 @@
         android:layout_width="105dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="290dp"
         android:text="@string/start"
         android:visibility="visible"
@@ -76,13 +77,27 @@
         android:layout_width="105dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="290dp"
         android:text="@string/restart"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pauseButton"
-        app:layout_constraintVertical_bias="1.0"
         tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/progress_bar"
+        android:layout_width="127dp"
+        android:layout_height="168dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/spin_animation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/startButton"
+        app:layout_constraintTop_toBottomOf="@+id/graph2"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.sensor_accelerometer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.SensorEvent;
@@ -10,6 +11,7 @@ import android.hardware.SensorEventListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +21,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class MainActivity extends AppCompatActivity{
-
+    //AnimationDrawable rocketAnimation;
     private TextView textView;
     private SensorManager sensorManager;
     private Sensor sensor, gyroscope;
@@ -59,6 +61,8 @@ public class MainActivity extends AppCompatActivity{
         // sensor for accelerometer
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        // Animation
+
 
         if (sensor == null){
             Toast.makeText(this, "value is null", Toast.LENGTH_SHORT).show();
@@ -166,7 +170,16 @@ public class MainActivity extends AppCompatActivity{
                 });
             }
         });
-
+//        ImageView rocketImage = (ImageView) findViewById(R.id.myanimation);
+//        rocketImage.setBackgroundResource(R.drawable.img3);
+//        rocketAnimation = (AnimationDrawable) rocketImage.getBackground();
+//
+//        rocketImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                rocketAnimation.start();
+//            }
+//        });
 
 
     }
